@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+    web:
+        build: .
+        ports:
+        - "8090:8090"
+        depends_on:
+        - db
+        networks:
+          - adoptpet-network
+    db:
+        image: postgres:12
+        environment:
+          POSTGRES_DB: adoptpet
+          POSTGRES_USER: wesleywesp
+          POSTGRES_PASSWORD: we0709
+        ports:
+          - "5432:5432"
+        networks:
+          - adoptpet-network
+        volumes:
+          - adoptpet-data:/var/lib/postgresql/data
+#  psql -h localhost -p 5437 -U wesleywesp -d adoptpet
+
+networks:
+    adoptpet-network:
+        driver: bridge
+
+volumes:
+  adoptpet-data:
