@@ -1,6 +1,7 @@
 package com.wesley.adopet.domain.ong.pets;
 
 
+import com.wesley.adopet.controller.DTO.Ongs.pets.AtualizarPetsDTO;
 import com.wesley.adopet.controller.DTO.Ongs.pets.CadastrarPetDTO;
 import com.wesley.adopet.domain.ong.ONG;
 import jakarta.persistence.*;
@@ -29,6 +30,7 @@ public class Pet {
     private String foto;
     private boolean adotado = false;
 
+
     @ManyToOne
     private ONG ong;
 
@@ -39,5 +41,27 @@ public class Pet {
         this.tipo = Animal.valueOf(dados.tipo().toUpperCase());
         this.foto = dados.foto();
         this.adotado = false;
+    }
+
+    public void atualizar(@Valid AtualizarPetsDTO dados) {
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if (dados.nascimento() != null) {
+            this.nascimento = dados.nascimento();
+        }
+        if (dados.descricao() != null) {
+            this.descricao = dados.descricao();
+        }
+        if(dados.tipo() != null) {
+            this.tipo = Animal.valueOf(dados.tipo().toUpperCase());
+        }
+        if (dados.foto() != null) {
+            this.foto = dados.foto();
+        }
+    }
+
+    public void adotado() {
+        this.adotado = true;
     }
 }
